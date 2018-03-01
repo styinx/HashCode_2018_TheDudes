@@ -6,4 +6,4 @@ class Vehicle:
         self.has_ride = False
         self.rides = []
         self.completed_rides = []
-        self.wait_time = idle_time
+        self.idle_time = idle_time
