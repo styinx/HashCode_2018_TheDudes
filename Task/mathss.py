@@ -42,3 +42,19 @@ class Mathss:
                     rides[r + 1] = rides[r]
                     rides[r] = temp
         return rides
+
+    @staticmethod
+    def sortCarsByAvailibilityToNextRide(cars, ride):
+        car_length = len(cars)
+
+        for i in range(0, car_length):
+            for r in range(0, car_length - 2):
+                avail_1 = cars[r].avail_at
+                avail_2 = cars[r + 1].avail_at
+                distance_1 = Mathss.calculate_distance(cars[r].pos_x, cars[r].pos_y, ride.x_start, ride.y_start)
+                distance_2 = Mathss.calculate_distance(cars[r + 1].pos_x, cars[r + 1].pos_y, ride.x_start, ride.y_start)
+                if avail_1 + distance_1 > avail_2 + distance_2:
+                    temp = cars[r + 1]
+                    cars[r + 1] = cars[r]
+                    cars[r] = temp
+        return cars
