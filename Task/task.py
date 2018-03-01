@@ -2,6 +2,7 @@ import sys
 from ride import Ride
 from info import Info
 from vehicle import Vehicle
+from mathss import Mathss
 
 
 def write(cars, out):
@@ -29,7 +30,8 @@ if __name__ == "__main__":
         rides = []
         cars = []
 
-        for r, line in enumerate(file_contents):
+        ride_lines = file_contents[1:]
+        for r, line in enumerate(ride_lines):
             l = line.split(' ')
             ride = Ride(int(l[0]),  # x_start
                         int(l[1]),  # y_start
@@ -37,37 +39,22 @@ if __name__ == "__main__":
                         int(l[3]),  # y_end
                         int(l[4]),  # start
                         int(l[5]),  # finish
-                        r - 1)  # id
+                        r)  # id
             rides.append(ride)
 
         for car in range(0, info.cars):
             cars.append(Vehicle(0, 0, 0))
 
+        rides = Mathss.sortRidesByStart(rides)
 
+        for i, car in enumerate(cars):
+            car[i].rides.append(rides[0])
+            car[i].avail_at += Mathss.calculate_distance(car.pos_x, car.pos_y, rides[0].start_x, rides[0].start_y) + rides[0].distance
+            del rides[0]
 
         out_name = sys.argv[1].split('/')[-1].split(".")[0]
         write(cars, out_name + ".out")
 
-
-def sortRidesByStart(rides):
-    rides_length = len(rides)
-
-    for i in range(0, rides_length):
-        for r in range(0, rides_length - 2):
-            if rides[r].t_start > rides[r + 1].t_start:
-                temp = rides[r + 1]
-                rides[r + 1] = rides[r]
-                rides[r] = temp
-    return rides
-
-
-def sortRidesByDistance(rides):
-    rides_length = len(rides)
-
-    for i in range(0, rides_length):
-        for r in range(0, rides_length - 2):
-            if rides[r].distance > rides[r + 1].distance:
-                temp = rides[r + 1]
-                rides[r + 1] = rides[r]
-                rides[r] = temp
-    return rides
+def printRides(rides):
+    for r in range(0, len(rides)):
+        print(str(rides[r].id) + ": " + str(rides[r].earliest_start))

@@ -6,4 +6,5 @@ class Vehicle:
         self.has_ride = False
         self.rides = []
         self.completed_rides = []
+        self.avail_at = 0
         self.idle_time = idle_time
