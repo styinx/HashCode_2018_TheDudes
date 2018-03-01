@@ -1,12 +1,16 @@
 import sys
 from ride import Ride
 from info import Info
+from vehicle import Vehicle
 
 
-# def write(result, out):
-#     with open(out, "w+") as handle:
-#         handle.write(str(len(result)) + "\n")
-#         handle.writelines("\n".join(result))
+def write(cars, out):
+    with open(out, "w+") as handle:
+        for car in cars:
+            ids = ""
+            for ride in car.completed_rides:
+                ids += str(ride.id) + " "
+            handle.write(str(len(car.completed_rides)) + ids + "\n")
 
 
 if __name__ == "__main__":
@@ -22,6 +26,8 @@ if __name__ == "__main__":
                     first_line[3],  # rides
                     first_line[4],  # bonus
                     first_line[5])  # step
+        rides = []
+        cars = []
 
         for r in range(1, len(file_contents)):
             ride = Ride(r[0],   # x_start
@@ -29,10 +35,15 @@ if __name__ == "__main__":
                         r[2],   # x_end
                         r[3],   # y_end
                         r[4],   # start
-                        r[5])   # finish
+                        r[5],   # finish
+                        r-1)    # id
+            rides.append(ride)
+
+        for car in range(0, info.cars):
+            cars.append(Vehicle(0, 0, 0))
 
         out_name = sys.argv[1].split('/')[-1].split(".")[0]
-        write([], out_name + ".out")
+        write(cars, out_name + ".out")
 
 
 def sortRidesByStart(rides):
