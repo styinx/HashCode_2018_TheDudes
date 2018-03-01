@@ -14,8 +14,8 @@ class Ride:
         self.x_start = x_start
         self.y_start = y_start
 
+    # Calculates the distance between two points
     def calculate_distance(self, x_start, y_start, x_end, y_end):
         distance = abs(x_start - x_end) + abs(y_start - y_end)
         return distance
 
-    
