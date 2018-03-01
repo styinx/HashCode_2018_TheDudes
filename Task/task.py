@@ -65,7 +65,7 @@ if __name__ == "__main__":
             cars[i].pos_x = rides[0].y_end
             del rides[0]
 
-        while len(rides) > 0:
+        while len(rides) > 0 and cars[0].avail_at < Info.sim_time:
             cars = Mathss.sortCarsByAvailibilityToNextRide(cars, rides[0])
             cars[0].rides.append(rides[0])
             cars[0].avail_at += Mathss.calculate_distance(cars[0].pos_x, cars[0].pos_y, rides[0].x_start,rides[0].y_start) + rides[0].distance
@@ -73,6 +73,7 @@ if __name__ == "__main__":
             cars[0].pos_x = rides[0].x_end
             cars[0].pos_x = rides[0].y_end
             del rides[0]
+            print(str(len(rides)) + " rides to go")
 
             #printCars(cars)
 
