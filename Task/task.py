@@ -1,5 +1,6 @@
 import sys
 from ride import Ride
+from info import Info
 
 
 # def write(result, out):
