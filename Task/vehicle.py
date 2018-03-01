@@ -5,4 +5,4 @@ class Vehicle:
         self.pos_y = pos_y
         self.has_ride = False
         self.rides = []
-        self.wait_time = idle_time
+        self.idle_time = idle_time
