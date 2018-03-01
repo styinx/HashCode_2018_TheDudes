@@ -1,24 +1,48 @@
 import sys
+from ride import Ride
 
 
-def write(result, out):
-    with open(out, "w+") as handle:
-        handle.write(str(len(result)) + "\n")
-        handle.writelines("\n".join(result))
+# def write(result, out):
+#     with open(out, "w+") as handle:
+#         handle.write(str(len(result)) + "\n")
+#         handle.writelines("\n".join(result))
 
 
 if __name__ == "__main__":
 
-    file_contents = {}
-    scenario = {}
-
     if len(sys.argv) > 1:
-        with open(sys.argv[1]) as file:
+        with open(sys.argv[1], mode="r") as file:
             file_contents = file.readlines()
 
-        info = file_contents[0].split(' ')
-        data = []
+        first_line = file_contents[0].split(' ')
+        info = Info(first_line[0],  # rows
+                    first_line[1],  # cols
+                    first_line[2],  # cars
+                    first_line[3],  # rides
+                    first_line[4],  # bonus
+                    first_line[5])  # step
+
         for r in range(1, len(file_contents)):
-            data.append(list(file_contents[r][:-1]))
+            ride = Ride(r[0],   # x_start
+                        r[1],   # y_start
+                        r[2],   # x_end
+                        r[3],   # y_end
+                        r[4],   # start
+                        r[5])   # finish
+
         out_name = sys.argv[1].split('/')[-1].split(".")[0]
         write([], out_name + ".out")
+
+
+def sortRidesByStart(rides):
+    rides_length = len(rides)
+
+    for i in range(0, rides_length):
+        for r in range(0, rides_length - 2):
+            if rides[r].t_start > rides[r + 1].t_start:
+                temp = rides[r + 1]
+                rides[r + 1] = rides[r]
+                rides[r] = temp
+    return rides
+
+def
