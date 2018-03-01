@@ -1,5 +1,6 @@
 import sys
 from ride import Ride
+from info import Info
 
 
 # def write(result, out):
@@ -45,4 +46,13 @@ def sortRidesByStart(rides):
                 rides[r] = temp
     return rides
 
-def
+def sortRidesByDistance(rides):
+    rides_length = len(rides)
+
+    for i in range(0, rides_length):
+        for r in range(0, rides_length - 2):
+            if rides[r].distance > rides[r + 1].distance:
+                temp = rides[r + 1]
+                rides[r + 1] = rides[r]
+                rides[r] = temp
+    return rides
