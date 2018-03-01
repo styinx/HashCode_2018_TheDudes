@@ -46,4 +46,11 @@ def sortRidesByStart(rides):
                 rides[r] = temp
     return rides
 
-def
+def sortRidesByDistance(rides):
+    for i in range(0, rides_length):
+        for r in range(0, rides_length - 2):
+            if rides[r].distance > rides[r + 1].distance:
+                temp = rides[r + 1]
+                rides[r + 1] = rides[r]
+                rides[r] = temp
+    return rides
