@@ -20,27 +20,30 @@ if __name__ == "__main__":
             file_contents = file.readlines()
 
         first_line = file_contents[0].split(' ')
-        info = Info(first_line[0],  # rows
-                    first_line[1],  # cols
-                    first_line[2],  # cars
-                    first_line[3],  # rides
-                    first_line[4],  # bonus
-                    first_line[5])  # step
+        info = Info(int(first_line[0]),  # rows
+                    int(first_line[1]),  # cols
+                    int(first_line[2]),  # cars
+                    int(first_line[3]),  # rides
+                    int(first_line[4]),  # bonus
+                    int(first_line[5]))  # step
         rides = []
         cars = []
 
-        for r in range(1, len(file_contents)):
-            ride = Ride(r[0],   # x_start
-                        r[1],   # y_start
-                        r[2],   # x_end
-                        r[3],   # y_end
-                        r[4],   # start
-                        r[5],   # finish
-                        r-1)    # id
+        for r, line in enumerate(file_contents):
+            l = line.split(' ')
+            ride = Ride(int(l[0]),  # x_start
+                        int(l[1]),  # y_start
+                        int(l[2]),  # x_end
+                        int(l[3]),  # y_end
+                        int(l[4]),  # start
+                        int(l[5]),  # finish
+                        r - 1)  # id
             rides.append(ride)
 
         for car in range(0, info.cars):
             cars.append(Vehicle(0, 0, 0))
+
+
 
         out_name = sys.argv[1].split('/')[-1].split(".")[0]
         write(cars, out_name + ".out")
@@ -56,6 +59,7 @@ def sortRidesByStart(rides):
                 rides[r + 1] = rides[r]
                 rides[r] = temp
     return rides
+
 
 def sortRidesByDistance(rides):
     rides_length = len(rides)
